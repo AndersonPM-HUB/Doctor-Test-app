@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block titulo %} Historia Clinica {% endblock %}
+
+{% block contenido %}
+
+<div class="card">
+    <div class="card-header">
+        Actualizar informacion/historial del Paciente 
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">DATOS PERSONALES </h4>
+
+        {% include 'formulario.html'%}
+
+    </div>
+    
+</div>
+
+{% endblock %}
+
