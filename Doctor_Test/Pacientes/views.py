@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Paciente
+from rest_framework import viewsets
+from .serializers import PacienteSerializer
 
 
 
@@ -22,7 +24,6 @@ def eliminar(request,documento):
     paciente = Paciente.objects.get(documento=documento)
     paciente.delete()
     return redirect ('/pacientes')
-
 
 
 def enviar(request):
@@ -61,5 +62,8 @@ def enviar(request):
     print(persona)
 
     return redirect('/pacientes')
-    
-    
+
+
+class PacienteView(viewsets.ModelViewSet):
+    queryset = Paciente.objects.all()
+    serializer_class = PacienteSerializer
