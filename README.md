@@ -1,2 +1,2 @@
 # Doctor-Test-app
-App Web de Diagnostico 
+App Web de Diagnosticos medicos
