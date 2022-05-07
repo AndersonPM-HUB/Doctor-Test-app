@@ -1,0 +1,39 @@
+.diseño{
+    display:grid;
+    grid-template-columns: repeat(2, 50%);
+    height: 100vh;
+
+}
+
+.imagenes{
+   background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.login{
+    background-image: url(../images/doctor.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-data{
+    width: 60%;
+    background-color: #fff;
+    justify-content: center;
+    position:relative;
+    margin: 0;
+    text-align: center;
+    padding-bottom: 50px;
+    border-radius: 15px;
+}
+.inputs{
+    position:relative;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1.5rem;
+}

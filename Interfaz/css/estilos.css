@@ -1,0 +1,98 @@
+:root{
+
+    scroll-behavior: smooth;
+}
+
+
+body{
+
+    font-family: 'Roboto Flex', sans-serif;
+    font-family: 'Tapestry', cursive;
+}
+
+.contenedor{
+
+    width: 90%;
+    max-width: 1200px;
+    overflow: hidden;
+    margin: auto;
+    padding: 60px 0;
+}
+header{
+    height: 100vh;
+    background-image: linear-gradient(to right, rgba(45, 131, 207, 0.329) 0%, rgba(0, 241, 254, 0.774) 100%),
+    url(../images/doctor2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #fff;
+}
+.head{
+    padding: 0p;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+h1{
+    text-size-adjust: 900px;
+}
+#menu{
+    position:fixed;
+    top: 30px;
+    right:30px;
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    cursor:pointer;
+    box-shadow: 0 0 6px, rgb(0,0,0,.5);
+
+}
+.navegation{
+    position:fixed;
+    top:10;
+    right: 0;
+    width: 30vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 0 6px, rgb(0,0,0,.5);
+    /* transform: translate(110%); */
+} */
+
+#imagen{
+    position: relative;
+    margin:0px;
+}
+.spread{
+
+    transform: translate(0%)
+}
+
+.navegation a{
+    color: #fff;
+    text-decoration: none;
+}
+.title{
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+#servicio{
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 40px;
+    font-size: 20px;
+}
+
+.contenedor #servicio{
+    display: flex;
+
+}

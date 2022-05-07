@@ -33,7 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 
     #mis apps
+    'Interfaz',
     'Pacientes',
+    
 
     #apps django
     'django.contrib.admin',
