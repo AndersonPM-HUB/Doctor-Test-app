@@ -1,7 +1,8 @@
-from django.urls import  path
+from django.urls import  path, include
 from . import views
 
 urlpatterns =[
     path('', views.interfaz, name='interfaz'), 
-    path('login/', views.login, name='login'),
+    path('plataforma/', views.plataforma, name='plataforma'), 
+     
 ]

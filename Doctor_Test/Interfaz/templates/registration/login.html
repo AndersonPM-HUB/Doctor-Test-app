@@ -15,19 +15,22 @@
             <div class="login-data">
                 
                 <h1>Inicio Sesión</h1>
-                <form action="" method="post">
+
+                <form  method="post">
+                    {% csrf_token %}
                     <div class="inputs">
                         <label for="">Usuario</label><img src="https://img.icons8.com/office/50/000000/user.png"/>
-                        <input type="number" name="codigo" id="" required>
+                        <input type="text" name="username" id="idusername" required>
                         
                     </div>
                     <div class="inputs">
                         <label for="">Constraseña</label><img src="https://img.icons8.com/color/50/000000/password.png"/>
-                        <input type="password" name="password" id="" required>
+                        <input type="password" name="password" id="idpassword" required>
                         
                     </div>
                     <a href="#">¿Necesitas recuperar Contraseña?</a>
                     <input type="submit" value="Ingresar">
+                    
                 </form>
             </div>
         </div>

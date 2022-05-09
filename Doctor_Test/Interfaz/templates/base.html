@@ -18,7 +18,12 @@
         <div class="nav navbar-nav">
             <a class="nav-item nav-link active" href="#">Inicio</a>
             <a class="nav-item nav-link" href="#">Diagnostico</a>
-            <a class="nav-item nav-link" href="Index.html">Pacientes</a>
+            <a class="nav-item nav-link" href="#">Pacientes</a>
+            
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link active" href="{% url 'logout' %}">Cerrar Sesión</a>
+            <h3 class="nombre">{{ user.username |upper }}</h3>
+            {% endif %}
             
         </div>
     </nav>
