@@ -2,9 +2,9 @@
 
 
 {% block contenido%}
-<h1>Nombre: {{user.get_full_name }} !</h1>
+<img src="https://img.freepik.com/vector-gratis/dibujado-mano-ilustracion-medicos-enfermeras_23-2148904547.jpg?w=2000" alt="" width=50%>
+<h2>Bienvenido  {{user.get_full_name }} !</h2>
 <h3>Correo: {{user.email}} </h3>
-<h3>Ocupacion :{{user.groups}} </h3>
 <h3>Ultima vez : {{user.last_login}} </h3>
 
 {% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block contenido %} 
+
+
+<div class="card">
+    <div class="card-header">
+        Agregar un nuevo Paciente 
+        <div align="center"><img src="https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824144_960_720.png" class="img-rounded-circle" alt="" width="100px"></div>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">DATOS PERSONALES </h4>
+
+        <form action="enviar/", method="POST">
+
+            {% csrf_token %}
+            <div class="mb-3">
+              <table class="table">
+                  <tr>
+                    <td > 
+                      <label for="" class="form-label">Nombres</label>
+                      <input type="text" name="nombre"  required >
+                    </td>
+                    <td>
+                      <label for="" class="form-label">Apellidos</label>
+                      <input type="text" name="apellido" required>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    <label for="">Fecha de Nacimiento</label>
+                    <input type="date" name="fecha"  required>
+                    </td>
+                    <td>
+                      <label for="">Sexo:</label>
+                      <select class="form-select"  name="sexo"  aria-label="Default select example">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label for="">Estado Civil:</label>
+                      <select class="form-select" name="estado" aria-label="Default select example">
+                        <option value="Soltero">Soltero</option>
+                        <option value="Casado">Casado</option>
+                      </select>
+                    </td>
+                    <td>
+                      <table class="table">
+                          <tr>
+                            <td >
+                              <label for="">Tipo de Documento:</label>
+                              <select class="form-select" name="tipo" aria-label="Default select example">
+                                <option value="T.I">T.I</option>
+                                <option value="C.C">C.C</option>
+                              </select>
+                              <td>
+                                <label for=""># ID: </label>
+                                <input type="text" name="id" required>
+                                <br>
+                                <br>
+                                <label for="">EPS: </label>
+                                <input type="text" name="eps" required>
+                              </td>
+                            </td>
+                          </td>
+                          </tr>
+                      </table>  
+                  </tr>
+                  <tr> 
+                    <td>
+                      <h4>Datos de contacto: </h4>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Telefono</span>
+                        <input type="tel" name ="telefono" required>
+                      </div>
+                    </td>
+                    <td>
+                      <br>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Email</span>
+                        <input type="email" name ="correo"  required>
+                      </div>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Dirección</span>
+                        <input type="text" name="direccion"  required>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4>Antecedentes: </h4>
+                      <h5>Alergias : </h5>
+                      <div class="input-group mb-3">
+                        <div class="form-check">
+                          <input type="radio" class="form-check-input" id="radio1" name="optradio" value="True" checked>Si
+                          <label class="form-check-label" for="radio1"></label>
+                        </div>
+                        <div class="form-check">
+                          <input type="radio" class="form-check-input" id="radio2" name="optradio" value="False">NO
+                          <label class="form-check-label" for="radio2"></label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <h5>Cirugias</h5>
+                      <select class="form-select" name="cirugia" >
+                        <option value="True">Si</option>
+                        <option value="False">No</option>
+                      </select>
+                      <h5>Esquema de Vacunacion </h5>
+                      <select class="form-select" name="vacuna" >
+                        <option value="True">Si</option>
+                        <option value="False">No</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> 
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Registrar</button>
+            </form>
+
+    </div>
+    
+</div>

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block contenido %}
+
+    <h1>PACIENTES REGISTRADOS</h1>
+    <div align="center"><img src="https://www.ehcos.com/wp-content/uploads/2017/11/icono-persona-correcta.png" class="img-rounded-circle" alt="" width="100px"></div>
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Buscar Paciente">
+        <button class="btn btn-success" type="submit">Buscar</button>
+      </div>
+
+
+    <div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="" role="button">Agregar Paciente</a> 
+    </div>
+    <div class="card-body">
+        <p class="card-text">En este espacio podra Agregar , Buscar , Actualizar y Borrar del sistema Pacientes</p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Documento </th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>EPS</th>
+                    <th>Telefono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in pacientes%}
+                <tr>
+                    <td>{{ p.documento}}</td>
+                    <td>{{ p.nombre}}</td>
+                    <td>{{ p.apellido}}</td>
+                    <td>{{ p.eps}}</td>
+                    <td>{{ p.telefono}}</td>
+                    <td>
+                        <a name="" id="" class="btn btn-info" href="actualizar/{{p.documento}}" role="button">Actualizar</a>
+                        <a name="" id="" class="btn btn-danger" href="eliminar/{{p.documento}}" role="button">Eliminar</a>
+                    
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="card-footer text-muted">
+        Doctor-test S.A.
+    </div>
+</div>          
+
+{% endblock %}
