@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Paciente
+from .models import Paciente, historia
 
 
 
@@ -9,6 +9,12 @@ from .models import Paciente
 class PacienteAdmin(admin.ModelAdmin):
     list_display= ('documento', 'nombre', 'apellido','eps','telefono')
     list_filter =('documento','nombre','apellido')
+    
+@admin.register(historia)
+class historiaAdmin(admin.ModelAdmin):
+    list_display= ('id','paciente_id')
+    list_filter =('id',)
+
 
 
 

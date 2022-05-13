@@ -18,3 +18,9 @@ class Paciente(models.Model):
     vacunas= models.BooleanField()
 
 
+class historia(models.Model):
+    id = models.AutoField(primary_key=True)
+    fecha=models.DateTimeField(auto_now_add=True)
+    diagnostico = models.TextField()
+    paciente_id= models.OneToOneField(Paciente, on_delete=models.CASCADE) #relacion de 1..1
+

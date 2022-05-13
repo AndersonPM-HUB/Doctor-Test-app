@@ -11,7 +11,7 @@
     <div class="card-body">
         <h4 class="card-title">DATOS PERSONALES </h4>
 
-        <form action="enviar/", method="POST">
+        <form action="/enviar", method="POST">
 
             {% csrf_token %}
             <div class="mb-3">
@@ -126,3 +126,5 @@
     </div>
     
 </div>
+
+{% endblock %}

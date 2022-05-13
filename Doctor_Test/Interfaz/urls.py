@@ -5,6 +5,8 @@ urlpatterns =[
     path('', views.interfaz, name='interfaz'), 
     path('plataforma/', views.plataforma, name='plataforma'),
     path('pacientes/', views.pacientes, name='pacientes'), 
-    
+    path('registro/', views.registro, name='registro'), 
+    path('registro/enviar/', views.enviar, name='envio'),
+    path('historia/<int:documento>', views.historia, name='historia'),  
  
 ]
