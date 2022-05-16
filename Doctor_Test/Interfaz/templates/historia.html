@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block contenido %} 
+
+<div class="card">
+
+<h1> Historia #{{ historia.id }} </h1>
+
+<table class="table-primary table-striped">
+    <tr>
+
+        <td>Informacion Personal </td>
+        <td>Antescedentes Historicos</td>
+    
+      </tr>
+      <tr>
+    
+        <td><h3>Informacion Personal :</h3>
+            {% for p , v in historia.paciente.items %}
+                <p style="line-height:0px">{{ p|upper }} :  {{ v }}</p>
+            {% endfor %}
+            </td>
+    
+        <td><h3>Historia Clinica :</h3>
+            <h6>Fecha diagnostico : {{ historia.fecha }}</h6>
+            
+            <p>Diagnostico : {{ historia.diagnostico }}</p></td>
+    
+      </tr>
+  </table>
+
+
+<h3>Agregar Informacion de diagnostico</h3>
+<form></form>
+
+
+
+
+
+</div>
+
+
+
+{%  endblock %} 

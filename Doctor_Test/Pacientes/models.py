@@ -16,6 +16,7 @@ class Paciente(models.Model):
     alergias= models.BooleanField()
     cirugias= models.BooleanField()
     vacunas= models.BooleanField()
+    
 
 
 class historia(models.Model):

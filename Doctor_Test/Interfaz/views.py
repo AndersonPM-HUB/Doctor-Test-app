@@ -56,11 +56,31 @@ def enviar(request):
     }
     print(persona)
     response = requests.post('http://127.0.0.1:8000/pacientes/api/paciente/', data = persona)
-
     return redirect('/pacientes')
 
 @login_required
-def historia(request):
+def historia(request, documento):
     response = requests.get('http://127.0.0.1:8000/pacientes/api/historia/')
-    pacientes = response.json()
-    return render(request, 'historia.html',  {'pacientes': pacientes})
+    diagnostico = response.json()
+    response = requests.get(f'http://127.0.0.1:8000/pacientes/api/paciente/{documento}')
+    paciente = response.json()
+    historia ={}
+    for x in diagnostico:
+        
+        if x['paciente_id']== documento:
+            diagnostico= x['diagnostico']
+            id= x['id']
+            fecha = x['fecha']
+            historia= {
+                "paciente": paciente,
+                "id": id,
+                "fecha": fecha,
+                "diagnostico": diagnostico,
+            }
+            print(historia)
+        else:
+            diagnostico = ''
+            
+        
+    
+    return render(request, 'historia.html' , {'historia' : historia})
