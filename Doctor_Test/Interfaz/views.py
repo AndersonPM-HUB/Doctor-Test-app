@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 import requests
 
 
@@ -56,31 +57,40 @@ def enviar(request):
     }
     print(persona)
     response = requests.post('http://127.0.0.1:8000/pacientes/api/paciente/', data = persona)
+    messages.add_message(request=request,level= messages.SUCCESS, message="Paciente Registrado")
     return redirect('/pacientes')
 
 @login_required
 def historia(request, documento):
     response = requests.get('http://127.0.0.1:8000/pacientes/api/historia/')
-    diagnostico = response.json()
+    historia = response.json()
     response = requests.get(f'http://127.0.0.1:8000/pacientes/api/paciente/{documento}')
     paciente = response.json()
-    historia ={}
-    for x in diagnostico:
+    
+    historia_descripcion ={}
+    list_diagnosticos=[]
+    for x in historia:
         
         if x['paciente_id']== documento:
+            
+            id_historia = x['id']
             diagnostico= x['diagnostico']
-            id= x['id']
-            fecha = x['fecha']
-            historia= {
+
+            print(f'este es la lista de {diagnostico}')
+            for d in diagnostico:
+                print(f'items : {d}')
+                response = requests.get(f'http://127.0.0.1:8000/pacientes/api/diagnostico/{d}')
+                data=response.json()
+                list_diagnosticos.append(data)
+            
+            
+            print(list_diagnosticos)
+            historia_descripcion= {
                 "paciente": paciente,
-                "id": id,
-                "fecha": fecha,
-                "diagnostico": diagnostico,
+                "id": id_historia,
+                "diagnostico": list_diagnosticos,
             }
-            print(historia)
         else:
             diagnostico = ''
             
-        
-    
-    return render(request, 'historia.html' , {'historia' : historia})
+    return render(request, 'historia.html' , {'historia' : historia_descripcion})

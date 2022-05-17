@@ -3,6 +3,8 @@
 
 <div class="card">
 
+
+{% if historia %}
 <h1> Historia #{{ historia.id }} </h1>
 
 <table class="table-primary table-striped">
@@ -21,19 +23,33 @@
             </td>
     
         <td><h3>Historia Clinica :</h3>
-            <h6>Fecha diagnostico : {{ historia.fecha }}</h6>
-            
-            <p>Diagnostico : {{ historia.diagnostico }}</p></td>
+            <h6>Antescedentes: </h6>
+            <p>_________________________________________________</p>
+            {% for p in historia.diagnostico %}
+                {% for a , b in p.items %}
+                    <p style="line-height:0px">{{ a | upper }} :  {{ b}}</p>
+                {% endfor %}
+                     <p>_________________________________________________</p>
+            {% endfor %}
+        
+        </td>
     
       </tr>
   </table>
 
-
+{% else %}
+<h1>No hay Historia registrada para este paciente. </h1>
+{% endif %}
 <h3>Agregar Informacion de diagnostico</h3>
-<form></form>
+<form>
+  
+    <label for="exampleFormControlTextarea1" class="form-label">Digite el Diagnostico del Paciente: </label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <button type="button" class="btn btn-primary">Enviar </button>
+      
 
 
-
+</form>
 
 
 </div>

@@ -4,6 +4,16 @@
 {% block contenido %}
 
     <h1>PACIENTES REGISTRADOS</h1>
+   
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show"  role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        
+    {% endif %}
     <div align="center"><img src="https://www.ehcos.com/wp-content/uploads/2017/11/icono-persona-correcta.png" class="img-rounded-circle" alt="" width="100px"></div>
 
     <div class="input-group mb-3">
