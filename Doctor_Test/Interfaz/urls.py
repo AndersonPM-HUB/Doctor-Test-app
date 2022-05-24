@@ -8,5 +8,5 @@ urlpatterns =[
     path('registro/', views.registro, name='registro'), 
     path('enviar/', views.enviar, name='envio'),
     path('historia/<int:documento>/', views.historia, name='historia'),  
- 
+    path('diagnostico/', views.diagnostico , name='diagnostico')
 ]

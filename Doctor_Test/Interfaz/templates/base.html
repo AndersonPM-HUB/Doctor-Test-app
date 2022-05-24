@@ -41,14 +41,13 @@
                 <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
                     <a href="{% url 'plataforma' %}"><i class="fas fa-home"></i><span>Perfil </span></a>
                     <a href="{% url 'pacientes' %}"><i class="fas fa-home"></i><span>Pacientes</span></a>
-                    <a href="#"><i class="fa-regular fa-files-medical"></i><span>Diagnostico</span></a>
+                    <a href="{% url 'diagnostico' %}"><i class="fas fa-book-spells"></i><span>Diagnostico</span></a>
                 </nav>
             </div>
             <main class="main col">
                 <div class="row justify-content-center  text-center">
                     <div class="columna col-lg-12">
-                      {% block contenido %}
-                      {% endblock %}
+                      {% block contenido %}{% endblock %}
                     </div>
 
                 </div>
