@@ -22,6 +22,8 @@
                         <option value="2">Niño</option>
                         <option value="3">Niña</option>
                       </select>
+                      <br>
+                      Edad: <input type="number" name="edad">
                     </td>
 
                     <td><label  class="form-label">Parte del cuerpo: </label>
@@ -39,15 +41,17 @@
             
             <td>
                 {% if sintomas %}
-                <form action="" method="post">
+                <form action="/resultados/" method="POST">
+                    {% csrf_token %}
                     <label class="form-label">Lista de Sintomas: </label>
                     <br>
-                                <select class="form-select" multiple aria-label="multiple select example">
-                                    <option selected>Open this select menu</option>
+                                <select class="form-select" multiple aria-label="multiple select example" name="sintoma">
                                 {% for y in sintomas %}
                                     <option value="{{ y.ID }}">{{ y.Name }}</option>
                                 {% endfor%}
                                 </select> 
+                    <br>
+                    <button type="submit" class="btn btn-primary">Buscar Diagnostico</button>
                 </form>
                 {% else %}
                 <p>-----></p>
