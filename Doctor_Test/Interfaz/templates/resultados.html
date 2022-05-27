@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block contenido %} 
+
+<div class="card">
+<h2>DIAGNOSTICO: </h2>
+
+<h3>leve a moderado:</h3>
+    {% for item  in rta %}
+        {% for d , i   in item.items %}
+            {% if d == 'Issue'%}
+                <em>* {{d}}</em><p>{{i.Name}};  {{ i.IcdName}}; POSIBLE CAUSA : {{i.ProfName}}</p>
+            {% elif d == 'Specialisation' %}
+                <em>-{{d}}</em><p>{{i}} </p>
+            {% endif%}
+            
+        {% endfor%}
+    {% endfor%}
+</div>
+{%  endblock %} 

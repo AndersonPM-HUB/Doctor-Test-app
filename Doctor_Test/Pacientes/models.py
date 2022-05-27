@@ -16,6 +16,15 @@ class Paciente(models.Model):
     alergias= models.BooleanField()
     cirugias= models.BooleanField()
     vacunas= models.BooleanField()
+
+    
+    
+class historia(models.Model):
+    id = models.AutoField(primary_key=True)
+    fecha=models.DateTimeField(auto_now_add=True)
+    # diagnostico = models.ManyToManyField(diagnostico)
+    paciente_id= models.OneToOneField(Paciente, on_delete=models.CASCADE) #relacion de 1..1
+    
     
 
 class diagnostico(models.Model):
@@ -23,11 +32,4 @@ class diagnostico(models.Model):
     fecha= models.DateField()
     descripcion=models.TextField()
     tratamiento=models.TextField()
-    
-    
-class historia(models.Model):
-    id = models.AutoField(primary_key=True)
-    fecha=models.DateTimeField(auto_now_add=True)
-    diagnostico = models.ManyToManyField(diagnostico)
-    paciente_id= models.OneToOneField(Paciente, on_delete=models.CASCADE) #relacion de 1..1
-
+    id_historia =models.ManyToManyField(historia)

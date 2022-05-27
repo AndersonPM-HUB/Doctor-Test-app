@@ -36,27 +36,37 @@
     
       </tr>
   </table>
+  <h3>Agregar Informacion de diagnostico</h3>
+
+
+<form action="/asignar/" method="POST">
+    {% csrf_token %}
+    <label for="exampleFormControlTextarea1" class="form-label">Fecha: </label>
+    <input type="date" name="date" >
+    <br>
+    <label for="exampleFormControlTextarea1" class="form-label">Digite el Diagnostico del Paciente: </label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="contenido"></textarea>
+      
+    <label for="exampleFormControlTextarea1" class="form-label">Tratamiento: </label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tratamiento"></textarea>
+     <br>
+    
+     Numero de historia: <input type="number" name="id">
+    
+    <button type="submit" class="btn btn-primary">Enviar </button>
+</form>
 
 {% else %}
 <h1>No hay Historia registrada para este paciente. </h1>
-{% endif %}
-<h3>Agregar Informacion de diagnostico</h3>
-
-
-<form>
-    <label for="exampleFormControlTextarea1" class="form-label">Fecha: </label>
-    <input type="date" name="" id="">
-    <br>
-    <label for="exampleFormControlTextarea1" class="form-label">Digite el Diagnostico del Paciente: </label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      
-    <label for="exampleFormControlTextarea1" class="form-label">Tratamiento: </label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-     <br>
-    <button type="button" class="btn btn-primary">Enviar </button>
+<h2>Crear historia </h2>
+<form action="/generar/" method="POST">
+    {% csrf_token %}
+    Cedula Paciente: <input type="number" name="cc">
+    <button type="submit" class="btn btn-primary">Enviar </button>
 </form>
-</div>
+{% endif %}
 
+</div>
 </div>
 
 

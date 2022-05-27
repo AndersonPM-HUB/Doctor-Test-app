@@ -9,9 +9,9 @@
     </div>
     <div class="card-body">
         <h4 class="card-title">Paciente</h4>
+        <img src="https://quizizz.com/media/resource/gs/quizizz-media/quizzes/f39fd211-3ed5-4207-9fdd-5f49069ce48a?w=600&h=600" alt="" srcset="">
         <table class="table table-striped">
-
-        <form action="/diagnostico/" method="POST">
+        <form action="/resultados/" method="POST">
             {% csrf_token %}
                 <tr>
                     <td>
@@ -23,26 +23,21 @@
                         <option value="3">Niña</option>
                       </select>
                       <br>
-                      Edad: <input type="number" name="edad">
+                      <br>    
+                      Edad: <input type="number" name="edad" required>
                     </td>
 
                     <td><label  class="form-label">Parte del cuerpo: </label>
+                        
                         <br>
                         {% for x in body %}
                          <input type="radio" name="parte" value="{{ x.ID }}">{{ x.Name }}<br>
                         {% endfor %}
                     </td>
                 </tr>
-                
-                <tr><td><button type="submit" class="btn btn-primary">Buscar sintomas</button></td>   
+            <tr>
+                <td>
                     
-                
-            </form>
-            
-            <td>
-                {% if sintomas %}
-                <form action="/resultados/" method="POST">
-                    {% csrf_token %}
                     <label class="form-label">Lista de Sintomas: </label>
                     <br>
                                 <select class="form-select" multiple aria-label="multiple select example" name="sintoma">
@@ -51,15 +46,11 @@
                                 {% endfor%}
                                 </select> 
                     <br>
+                    <br>
                     <button type="submit" class="btn btn-primary">Buscar Diagnostico</button>
                 </form>
-                {% else %}
-                <p>-----></p>
-                {% endif %}
-            </td>
-        </tr>
-        
-
+                </td>
+            </tr>
     </table> 
     </div>
 </div>   

@@ -9,5 +9,7 @@ urlpatterns =[
     path('enviar/', views.enviar, name='envio'),
     path('historia/<int:documento>/', views.historia, name='historia'),  
     path('diagnostico/', views.diagnostico , name='diagnostico'),
-    path('resultados/', views.resultados , name='resultados')
+    path('resultados/', views.resultados , name='resultados'),
+    path('asignar/', views.asignar , name='asignar'),
+    path('generar/', views.generar , name='generar')
 ]

@@ -1,13 +1,11 @@
-from tkinter import S
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import requests
 
-gender =''
-anio = ''
-s =''
+
 def interfaz(request):
     return render(request, 'index.html')
 
@@ -66,89 +64,106 @@ def enviar(request):
 @login_required
 def historia(request, documento):
     
-    
+    #peticion de historia 
     response = requests.get('http://127.0.0.1:8000/pacientes/api/historia/')
     historia = response.json()
+    #peticion de paciente
     response = requests.get(f'http://127.0.0.1:8000/pacientes/api/paciente/{documento}')
     paciente = response.json()
+    #peticion de diagnosticos 
+    response=requests.get(f'http://127.0.0.1:8000/pacientes/api/diagnostico/')
+    diagnosticos = response.json()
     
     historia_descripcion ={}
     list_diagnosticos=[]
+    
     for x in historia:
-        
         if x['paciente_id']== documento:
-            
             id_historia = x['id']
-            diagnostico= x['diagnostico']
-
-            print(f'este es la lista de {diagnostico}')
-            for d in diagnostico:
-                print(f'items : {d}')
-                response = requests.get(f'http://127.0.0.1:8000/pacientes/api/diagnostico/{d}')
-                data=response.json()
-                list_diagnosticos.append(data)
-            
-            
-            print(list_diagnosticos)
+            print(id_historia)
+            for y in diagnosticos:
+                print(y)
+                for i in y['id_historia']:
+                    print(i)
+                    if i == id_historia:
+                        list_diagnosticos.append(y) 
+                    print(list_diagnosticos)
+                
+                        
             historia_descripcion= {
-                "paciente": paciente,
-                "id": id_historia,
-                "diagnostico": list_diagnosticos,
-            }
-        else:
-            diagnostico = ''
-            
-    return render(request, 'historia.html' , {'historia' : historia_descripcion})
+                            "paciente": paciente,
+                            "id": id_historia,
+                            "diagnostico": list_diagnosticos,
+                        }
+             
+    return render(request, 'historia.html' ,{'historia': historia_descripcion})
 
-
+@login_required
 def diagnostico(request):
-    response = requests.get('https://sandbox-healthservice.priaid.ch/body/locations?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFuZGVyc29ucGVkcm96YTNAZ21haWwuY29tIiwicm9sZSI6IlVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxMDcyOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvdmVyc2lvbiI6IjIwMCIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbGltaXQiOiI5OTk5OTk5OTkiLCJodHRwOi8vZXhhbXBsZS5vcmcvY2xhaW1zL21lbWJlcnNoaXAiOiJQcmVtaXVtIiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9sYW5ndWFnZSI6ImVuLWdiIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiMjA5OS0xMi0zMSIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcHN0YXJ0IjoiMjAyMi0wNS0yMyIsImlzcyI6Imh0dHBzOi8vc2FuZGJveC1hdXRoc2VydmljZS5wcmlhaWQuY2giLCJhdWQiOiJodHRwczovL2hlYWx0aHNlcnZpY2UucHJpYWlkLmNoIiwiZXhwIjoxNjUzNTQzNTY0LCJuYmYiOjE2NTM1MzYzNjR9.3HOCK0U29soFKHHsmYtW67Cb18Aym8wTCWvw21aBMeM&format=json&language=es-es')
+    
+    #mostrar partes del cuerpo 
+    response = requests.get('https://sandbox-healthservice.priaid.ch/body/locations?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFuZGVyc29ucGVkcm96YTNAZ21haWwuY29tIiwicm9sZSI6IlVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxMDcyOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvdmVyc2lvbiI6IjIwMCIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbGltaXQiOiI5OTk5OTk5OTkiLCJodHRwOi8vZXhhbXBsZS5vcmcvY2xhaW1zL21lbWJlcnNoaXAiOiJQcmVtaXVtIiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9sYW5ndWFnZSI6ImVuLWdiIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiMjA5OS0xMi0zMSIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcHN0YXJ0IjoiMjAyMi0wNS0yMyIsImlzcyI6Imh0dHBzOi8vc2FuZGJveC1hdXRoc2VydmljZS5wcmlhaWQuY2giLCJhdWQiOiJodHRwczovL2hlYWx0aHNlcnZpY2UucHJpYWlkLmNoIiwiZXhwIjoxNjUzNjY5NTQ0LCJuYmYiOjE2NTM2NjIzNDR9.iXR3SEEDEW4tjUXHdm5qLtBxFxF5iDjMahVoPQkNxK8&format=json&language=es-es')
     body = response.json()
-    sintomas ={}
+    #mostrar sintomas
+    response =requests.get(f'https://sandbox-healthservice.priaid.ch/symptoms?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFuZGVyc29ucGVkcm96YTNAZ21haWwuY29tIiwicm9sZSI6IlVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxMDcyOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvdmVyc2lvbiI6IjIwMCIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbGltaXQiOiI5OTk5OTk5OTkiLCJodHRwOi8vZXhhbXBsZS5vcmcvY2xhaW1zL21lbWJlcnNoaXAiOiJQcmVtaXVtIiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9sYW5ndWFnZSI6ImVuLWdiIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiMjA5OS0xMi0zMSIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcHN0YXJ0IjoiMjAyMi0wNS0yMyIsImlzcyI6Imh0dHBzOi8vc2FuZGJveC1hdXRoc2VydmljZS5wcmlhaWQuY2giLCJhdWQiOiJodHRwczovL2hlYWx0aHNlcnZpY2UucHJpYWlkLmNoIiwiZXhwIjoxNjUzNjY5NTQ0LCJuYmYiOjE2NTM2NjIzNDR9.iXR3SEEDEW4tjUXHdm5qLtBxFxF5iDjMahVoPQkNxK8&format=json&language=es-es')
+    sintomas =response.json()
+    return render(request, 'diagnostico.html', context={'body': body, 'sintomas': sintomas})
+
+@login_required
+def resultados(request):
     
     if request.method == 'POST':
-        if 'sexo' in request.POST:
-            sex= request.POST['sexo']
-            gender = sex
-        else:
-            sex = gender
-        
-        
-        if 'parte'in request.POST:
-            part =request.POST['parte']
-        else :
-            part = None
-            
-        response =requests.get(f'https://sandbox-healthservice.priaid.ch/symptoms/{part}/{sex}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFuZGVyc29ucGVkcm96YTNAZ21haWwuY29tIiwicm9sZSI6IlVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxMDcyOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvdmVyc2lvbiI6IjIwMCIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbGltaXQiOiI5OTk5OTk5OTkiLCJodHRwOi8vZXhhbXBsZS5vcmcvY2xhaW1zL21lbWJlcnNoaXAiOiJQcmVtaXVtIiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9sYW5ndWFnZSI6ImVuLWdiIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiMjA5OS0xMi0zMSIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcHN0YXJ0IjoiMjAyMi0wNS0yMyIsImlzcyI6Imh0dHBzOi8vc2FuZGJveC1hdXRoc2VydmljZS5wcmlhaWQuY2giLCJhdWQiOiJodHRwczovL2hlYWx0aHNlcnZpY2UucHJpYWlkLmNoIiwiZXhwIjoxNjUzNTQzNzA4LCJuYmYiOjE2NTM1MzY1MDh9.u6_3bS8eo1QSQVvuKRVN1InJ5LmuyGytglEdaTI0ZEk&format=json&language=es-es')
-        if response.status_code == 200:
-            sintomas =response.json()
-        
-        if 'edad'in request.POST:
-            age =request.POST['edad']
-            year= 2022 - int(age)
-            anio = year
-        
-        
-        if gender == '0' or gender =='2':
+        #obtener sexo
+        sex= request.POST['sexo'] 
+        if sex == '0' or sex =='2':
             s='male'
         else:
             s ='female'
         
+        #obtener edad
+        age =request.POST['edad']
+        year= 2022 - int(age)
         
+        #obtener sintomas    
+        sintoms = request.POST['sintoma']
         
-    return render(request, 'diagnostico.html', context={'body': body, 'sintomas': sintomas})
+        #generar diagnostico    
+        response =requests.get(f'https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[{sintoms}]&gender={s}&year_of_birth={year}&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFuZGVyc29ucGVkcm96YTNAZ21haWwuY29tIiwicm9sZSI6IlVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxMDcyOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvdmVyc2lvbiI6IjIwMCIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbGltaXQiOiI5OTk5OTk5OTkiLCJodHRwOi8vZXhhbXBsZS5vcmcvY2xhaW1zL21lbWJlcnNoaXAiOiJQcmVtaXVtIiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9sYW5ndWFnZSI6ImVuLWdiIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiMjA5OS0xMi0zMSIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcHN0YXJ0IjoiMjAyMi0wNS0yMyIsImlzcyI6Imh0dHBzOi8vc2FuZGJveC1hdXRoc2VydmljZS5wcmlhaWQuY2giLCJhdWQiOiJodHRwczovL2hlYWx0aHNlcnZpY2UucHJpYWlkLmNoIiwiZXhwIjoxNjUzNjY5NTQ0LCJuYmYiOjE2NTM2NjIzNDR9.iXR3SEEDEW4tjUXHdm5qLtBxFxF5iDjMahVoPQkNxK8&format=json&language=es-es')
+        
+        if response.status_code == 200: 
+            rta = response.json()
+            
+    return render(request, 'resultados.html', context={'rta':rta})
 
-def resultados(request):
+@login_required
+def asignar(request):
     
-    if request.method == 'POST':
-        lista= request.POST['sintoma']
-             
-        print(s)
-        print(anio)
-        print(lista)
-        response = requests.get(f'https://sandbox-healthservice.priaid.ch/diagnosis?symptoms=[{lista}]&gender={s}&year_of_birth={anio}&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFuZGVyc29ucGVkcm96YTNAZ21haWwuY29tIiwicm9sZSI6IlVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxMDcyOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvdmVyc2lvbiI6IjIwMCIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbGltaXQiOiI5OTk5OTk5OTkiLCJodHRwOi8vZXhhbXBsZS5vcmcvY2xhaW1zL21lbWJlcnNoaXAiOiJQcmVtaXVtIiwiaHR0cDovL2V4YW1wbGUub3JnL2NsYWltcy9sYW5ndWFnZSI6ImVuLWdiIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiMjA5OS0xMi0zMSIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbWVtYmVyc2hpcHN0YXJ0IjoiMjAyMi0wNS0yMyIsImlzcyI6Imh0dHBzOi8vc2FuZGJveC1hdXRoc2VydmljZS5wcmlhaWQuY2giLCJhdWQiOiJodHRwczovL2hlYWx0aHNlcnZpY2UucHJpYWlkLmNoIiwiZXhwIjoxNjUzNTQ2MzU4LCJuYmYiOjE2NTM1MzkxNTh9.V8StQmzPtS7spyIIqPhAXfHhm-88cLs0Ac4QxIQ1T7k&format=json&language=es-es')
-        diag =response.json()
-        print(diag)
+    fecha =  request.POST['date']
+    diagnostico = request.POST['contenido'] 
+    tratamiento =  request.POST['tratamiento']  
+    id= request.POST['id'] 
     
-    return render(request, 'resultados.html')
+    data={
+    
+    "fecha":fecha,
+    "descripcion": diagnostico,
+    "tratamiento":tratamiento,
+    "id_historia": [id]
+    }
+    
+    response = requests.post('http://127.0.0.1:8000/pacientes/api/diagnostico/', data = data)
+    messages.add_message(request=request,level= messages.SUCCESS, message="Diagnostico registrado")
+    return redirect('/pacientes')
+
+@login_required
+def generar(request):
+    cedula =  request.POST['cc']
+    
+    data={
+        
+        "paciente_id": cedula
+    }
+    response = requests.post('http://127.0.0.1:8000/pacientes/api/historia/', data = data)
+    messages.add_message(request=request,level= messages.SUCCESS, message="Historial Creado")
+    return redirect('/pacientes')
     
