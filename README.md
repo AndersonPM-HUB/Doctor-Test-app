@@ -1,5 +1,5 @@
 # Doctor-Test-app
-App Web de Diagnosticos medicos
+App Web de Diagnosticos medicos desarrollada en Django
 
 
 instalacion 
